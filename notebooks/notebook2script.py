@@ -1,4 +1,5 @@
 ## SOURCE ==> https://github.com/fastai/fastai_dev/blob/master/dev_nb/notebook2script.py
+## with minor modifications
 
 # use tools/sync-nb-exports to autogenerate all relevant files automatically
 
@@ -14,8 +15,8 @@ def is_export(cell):
 
 def get_py_fname(fname):
     fname = os.path.splitext(fname)[0]
-    number = fname.split('_')[0]
-    return f'nb_{number}.py'
+    name = fname.split('_')[1]
+    return f'{name}.py'
 
 def notebook2script(fname):
     fname = Path(fname)
