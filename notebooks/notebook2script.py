@@ -15,7 +15,7 @@ def is_export(cell):
 
 def get_py_fname(fname):
     fname = os.path.splitext(fname)[0]
-    name = fname.split('_')[1]
+    name = ('_'.join(fname.rsplit('_')[1:])).split('.ipynb')[0]
     return f'{name}.py'
 
 def notebook2script(fname):
