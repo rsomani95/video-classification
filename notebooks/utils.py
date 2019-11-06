@@ -45,7 +45,7 @@ def read_video_tensor(file, probe_i=1):
     return torch.from_numpy(vid)
 
 
-def subplot_img(sub_plt, x, i):
+def subplot_img(sub_plt, x, i, prefix):
     """
     Plot one frame of a 4D video tensor.
     Removes axes and prints Frame # for aesthetic peace of mind
@@ -64,14 +64,14 @@ def subplot_img(sub_plt, x, i):
 
     """
     sub_plt.imshow(x[i])
-    sub_plt.set_title(f'Frame #{i+1}')
+    sub_plt.set_title(f'{prefix}Frame #{i+1}')
     sub_plt.axis('off')
 
 import matplotlib.pyplot as plt
 
-def plot_adjacent(x, i1=0, i2=31, figsize=(16,10)):
+def plot_adjacent(x, prefix='', i=0, j=31, figsize=(16,10)):
     """
-    Plot 2 frames of a video tensor side by side
+    Plot 2 frames of a 4D video tensor/array side by side
 
     Parameters
     ----------
@@ -84,7 +84,7 @@ def plot_adjacent(x, i1=0, i2=31, figsize=(16,10)):
     """
 
     f, plots = plt.subplots(1, 2, figsize=figsize)
-    plots[0] = subplot_img(plots[0], x, i1)
-    plots[1] = subplot_img(plots[1], x, i2)
+    plots[0] = subplot_img(plots[0], x, i, prefix)
+    plots[1] = subplot_img(plots[1], x, j, prefix)
 
     f.tight_layout()
