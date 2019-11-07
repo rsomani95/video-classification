@@ -3,12 +3,12 @@ from fractions import Fraction
 import math
 import numpy as np
 import torch
-from .io import (
+from torchvision.io import (
     _read_video_timestamps_from_file,
     _read_video_from_file,
     _probe_video_from_file
 )
-from .io import read_video_timestamps, read_video
+from torchvision.io import read_video_timestamps, read_video
 
 from .utils import tqdm
 
@@ -182,6 +182,7 @@ class VideoClips(object):
         """
         self.num_frames = num_frames
         self.step = step
+        self.frame_stride = frame_stride
         self.frame_rate = frame_rate
         self.clips = []
         self.resampling_idxs = []
@@ -317,5 +318,5 @@ class VideoClips(object):
 
         union_idx = lambda x,y: np.in1d(x.numpy(), y.numpy()).nonzero()
         video = video[union_idx(video_pts, clip_pts)]
-        #assert len(video) == self.num_frames, "{} x {}".format(video.shape, self.num_frames)
+        assert len(video) == self.num_frames // self.frame_stride, "{} x {}".format(video.shape, self.num_frames)
         return video, audio, info, video_idx
