@@ -17,13 +17,22 @@ class VideoDataset(VisionDataset):
             Root directory of the dataset.
 
         frames_per_clip : int
-            number of frames in a clip
+            No. of frames in per video
 
         step_between_clips : int
-            number of frames between each clip
+            Difference between the starting frame of each subclip
 
-        transform (callable, optional): A function/transform that  takes in a TxHxWxC video
-            and returns a transformed version.
+        frame_stride : int
+            Step between frames within a subclip. For example, with `frame_stride=2`, a
+            `num_frames=16` subclip gets downsized to `16 // 2 = 8`
+
+        tfms_torch (callable, optional)
+            A function/transform that  takes in a (T,H,W,C) video
+            and returns a transformed version with shape (C,T,H,W).
+
+        tfms_albu (callable, optional)
+            An albumentations video transformation function that takes in
+            (C,T,H,W) and outputs (C,T,H,W)
 
     Returns
     -------
