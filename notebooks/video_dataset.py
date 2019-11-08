@@ -47,7 +47,7 @@ class VideoDataset(VisionDataset):
             class of the video clip
     """
 
-    def __init__(self, root, frames_per_clip, step_between_clips=1, frame_stride=1, frame_rate=None,
+    def __init__(self, root, frames_per_clip=32, step_between_clips=1, frame_stride=1, frame_rate=None,
                  extensions=('mp4',), tfms_torch=None, tfms_albu=None, _precomputed_metadata=None,
                  num_workers=1, _video_width=0, _video_height=0,
                  _video_min_dimension=0, _audio_samples=0):
