@@ -8,6 +8,7 @@ from visionmod.utils import list_dir
 from visionmod.folder import make_dataset
 from visionmod.video_utils import VideoClips
 from torchvision.datasets.vision import VisionDataset
+import albumentations as A
 
 class VideoDataset(VisionDataset):
     """
