@@ -79,12 +79,12 @@ class VideoDataset(VisionDataset):
         return self.video_clips.metadata
 
     def get_info(self):
+        import pandas as pd
         fnames     = [f.rsplit('/')[-1] for f   in self.video_clips.metadata['video_paths']]
         classes    = [f.rsplit('/')[-2] for f   in self.video_clips.metadata['video_paths']]
         num_frames = [len(pts)          for pts in self.video_clips.metadata['video_pts']]
         fps        = [i                 for i   in self.video_clips.metadata['video_fps']]
         subclips   = [len(x)            for x   in self.video_clips.clips]
-
 
         info = pd.DataFrame(data    = list(zip(fnames, classes, num_frames, fps, subclips)),
                             columns = ['Filename', 'Class', '# Frames', 'FPS', '# Subclips'])
