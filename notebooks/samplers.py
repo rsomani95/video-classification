@@ -4,7 +4,7 @@
         #################################################
         # file to edit: 04_samplers.ipynb
 
-
+import torch
 class RandomClipSampler(torch.utils.data.Sampler):
     """
     Samples at most `max_video_clips_per_video` clips for each video randomly
