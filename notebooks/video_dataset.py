@@ -4,6 +4,25 @@
         #################################################
         # file to edit: 03_video_dataset.ipynb
 
+import torch
+import numpy as np
+import random
+
+def apply_tfms_albu(vid, tfms_albu):
+    """
+    Applies `tfms_albu` to `vid` (C,T,H,W) and returns
+    a tensor of shape (C,T,H,W)
+    """
+    seed    = random.randint(0,99999)
+    vid     = vid.permute(1,2,3,0) # added line of code
+    aug_vid = []
+    for x in vid:
+        random.seed(seed)
+        aug_vid.append((tfms_albu(image = np.asarray(x)))['image'])
+    return torch.from_numpy(np.stack(aug_vid)).permute(3,0,1,2)
+
+# ---
+
 from visionmod.utils import list_dir
 from visionmod.folder import make_dataset
 from visionmod.video_utils import VideoClips
