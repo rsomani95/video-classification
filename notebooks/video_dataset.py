@@ -117,8 +117,13 @@ class VideoDataset(VisionDataset):
         video, audio, info, video_idx = self.video_clips.get_clip(idx)
         label = self.samples[video_idx][1]
 
-        if self.tfms_albu is None: self.tfms = A.Compose([])
-        if self.tfms_torch is not None:
+        if self.tfms_torch and not self.tfms_albu:
+            video = self.tfms_torch(video)
+
+        if self.tfms_torch and self.tfms_albu:
             video = apply_tfms_albu(self.tfms_torch(video), self.tfms_albu)
+
+        if not self.tfms_torch and not self.tfms_albu:
+            video = video.permute(3,0,1,2).to(torch.float32)
 
         return video, audio, label
